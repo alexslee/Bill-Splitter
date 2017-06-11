@@ -32,7 +32,9 @@
 }
 
 - (IBAction)calculateSplitAmount:(UIButton *)sender {
-    
+    float bill = [self.billTextField.text floatValue];
+    float numberOfPeople = floor(self.peopleNumberSlider.value);
+    self.splitTotalLabel.text = [NSString stringWithFormat:@"$%.2lf",bill/numberOfPeople];
 }
 
 @end
