@@ -58,6 +58,7 @@
 
 - (IBAction)changedNumberOfPeople:(UISlider *)sender {
     if (sender == self.peopleNumberSlider) {
+        //display the new # of people the bill is being split with, before calculating the new split total
         self.splitNumberDisplay.text = [NSString stringWithFormat:@"%.0lf People",floor(self.peopleNumberSlider.value)];
         
         [self calculateSplitAmount];
@@ -66,7 +67,7 @@
 
 - (IBAction)changedTipPercent:(UISlider *)sender {
     if (sender == self.tipSlider) {
-        
+        //round down and store the tip slider's value, and update the tip percentage display, before updating the split total
         self.tip = [NSNumber numberWithFloat:floor(self.tipSlider.value)];
         
         self.tipPercentDisplay.text = [NSString stringWithFormat:@"%.0lf%% Tip",[self.tip floatValue]];
@@ -77,12 +78,14 @@
 
 - (float)updateTipPercent:(float)total;
 {
+    //returns the amount of tips to add to the total
     float tipPercentage = [self.tip floatValue] / 100;
     return (total * tipPercentage);
 }
 
 - (void)textFieldDidChange:(NSNotification *)sender;
 {
+    //update the split total whenever the user changes what's in the bill amount text field
     [self calculateSplitAmount];
 }
 
